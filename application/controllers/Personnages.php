@@ -1,0 +1,130 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Personnages extends CI_Controller {
+	public function __construct()	{
+		parent::__construct();
+		$this->load->model('personnages_model');
+	}
+
+	public function index()	{
+		$data = array();
+
+		$data['races'] = $this->personnages_model->getRaces();
+		$data['religions'] = $this->personnages_model->getReligions();
+		$data['classes'] = $this->personnages_model->getClasses();
+
+		$this->load->view('template/header', $data);
+        $this->load->view('personnages/search', $data);
+        $this->load->view('template/footer',$data);
+	}
+
+	public function searchPerso(){
+		$data = array();
+
+		$data['races'] = $this->personnages_model->getRaces();
+		$data['religions'] = $this->personnages_model->getReligions();
+		$data['classes'] = $this->personnages_model->getClasses();
+
+		$data['results'] = $this->personnages_model->getResults();
+
+		$this->load->view('template/header', $data);
+        $this->load->view('personnages/search', $data);
+        $this->load->view('template/footer',$data);
+	}
+
+	public function editPersonnage($idPerso, $idIndiv){
+		$data = array();
+
+		$data['races'] = $this->personnages_model->getRaces();
+		$data['religions'] = $this->personnages_model->getReligions();
+		$data['classes'] = $this->personnages_model->getClasses();
+		$data['subClasses'] = $this->personnages_model->getSubClasses();
+
+		$data['infoIndiv'] = $this->personnages_model->getIndivInfo($idIndiv);
+		$data['infoPerso'] = $this->personnages_model->getPersoInfo($idPerso);
+
+		$data['XP'] = $this->personnages_model->getXP($idPerso);
+		$data['PV'] = $this->personnages_model->getPV($idPerso);
+
+		$data['travail'] = $this->personnages_model->getTravail($idPerso);
+
+		$data['skills'] = $this->personnages_model->getSkills($idPerso);
+
+		$this->load->view('template/header', $data);
+        $this->load->view('personnages/singleJoueur', $data);
+        $this->load->view('template/footer',$data);
+
+	}
+
+	public function editReligion($idPerso, $idIndiv){
+
+		$this->personnages_model->editReligion($idPerso);
+
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+
+	}
+
+	public function editClasse($idPerso, $idIndiv){
+		$this->personnages_model->editClasse($idPerso);
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function editSkills($idPerso, $idIndiv){
+		$data['infoIndiv'] = $this->personnages_model->getIndivInfo($idIndiv);
+		$data['infoPerso'] = $this->personnages_model->getPersoInfo($idPerso);
+
+		$data['XP'] = $this->personnages_model->getXP($idPerso);
+
+		$data['skills'] = $this->personnages_model->getSkills($idPerso);
+		$data['regSkills'] = $this->personnages_model->getRegSkills($idPerso);
+
+		$data['specSkills'] = $this->personnages_model->getSpecSkills();
+
+		$this->load->view('template/header', $data);
+        $this->load->view('personnages/editskills', $data);
+        $this->load->view('template/footer',$data);
+	}
+
+	public function paySkill($idPerso, $idIndiv){
+		$this->personnages_model->paySkill($idPerso);
+
+		redirect('/personnages/editSkills/' .$idPerso . '/' . $idIndiv ,'refresh');
+
+	}
+
+	public function giveSkill($idPerso, $idIndiv){
+		$this->personnages_model->giveSkill($idPerso);
+
+		redirect('/personnages/editSkills/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function deleteSkill($idPerso, $idIndiv, $idSkill, $codeEtat){
+		$this->personnages_model->deleteSkills($idSkill, $codeEtat);
+
+		redirect('/personnages/editSkills/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function declareMort($idPerso, $idIndiv){
+		$this->personnages_model->declareMort($idPerso);
+
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function deleteTravail($idPerso, $idIndiv){
+		$this->personnages_model->deleteTravail($idPerso);
+
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function levelUP($idPerso, $idIndiv, $currentLvl){
+		$this->personnages_model->levelUP($idPerso, $idIndiv, $currentLvl);
+
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+}
+
+/* End of file Personnages.php */
+/* Location: ./application/controllers/Personnages.php */ 
+?>
