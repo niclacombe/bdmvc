@@ -100,6 +100,7 @@ class Personnages_model extends CI_Model {
 
 			$this->db->db_select('db_perso');
 			$this->db->where('IdIndividu', $joueur['idIndiv'] );
+			$this->db->where('CodeEtat !=', 'SUPPR');
 			$query = $this->db->get('personnages');
 
 			$joueurs[$key]['nomIndiv'] = $joueur['nomIndiv'];
