@@ -47,6 +47,15 @@ class Personnages_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function getTitres($idPerso){
+		$this->db->db_select('db_perso');
+
+		$this->db->where('IdPersonnage', $idPerso);
+		$query = $this->db->get('titres');
+
+		return $query->result();
+	}
+
 	public function getResults(){
 
 		$this->db->db_select('db_indiv');
@@ -807,6 +816,25 @@ class Personnages_model extends CI_Model {
 			$this->db->insert('experience',$insertData);
 
 		}
+	}
+
+	public function addTitre($idPerso, $idIndiv){
+		$insertData = array(
+			'IdPersonnage' => $idPerso,
+			'Titre' => $this->input->post('titre'),
+			'Description' => $this->input->post('description'),
+			'Avantages' => $this->input->post('avantages'),
+			'DateAcquisition' => date('Y-m-d H:i:s', time())
+		);
+
+		$this->db->db_select('db_perso');
+		$this->db->insert('titres', $insertData);
+	}
+
+	public function removeTitre($idTitre){
+		$this->db->db_select('db_perso');
+		$this->db->where('Id', $idTitre);
+		$this->db->delete('titres');
 	}
 	
 

@@ -101,6 +101,30 @@
 	        		<h4>Ce joueur n'a travaillé pour aucun groupe ce mois-ci.</h4>
 	        	<?php endif; ?>
         	</div>
+            <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                <div class="col-xs-12 col-md-5">
+                    <h3>Titres</h3>
+                    <button class="btn btn-primary pop" data-pop="addTitre">Ajouter un titre <span class="fa fa-star"></span></button><br><br>
+                    <?php if(empty($titres) ): ?>
+                        <h4>Ce joueur n'a aucun titre.</h4>
+                        
+                    <?php else: ?>
+                    <table class="table table-responsive table-striped">
+                    <?php foreach ($titres as $titre) : ?>
+                            <tr>
+                                <td><strong><?php echo $titre->Titre ?></strong></td>
+                                <td><?php echo $titre->Description .'<br><em>' . $titre->Avantages ?></em></td>
+                                <td>
+                                    <a href="<?php echo site_url('personnages/removeTitre') .'/' .$infoPerso->Id . '/' .$infoIndiv->Id .'/' .$titre->Id; ?>">
+                                        <button class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                                    </a>
+                                </td>
+                            </tr>
+                    <?php endforeach; ?>
+                        </table>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
         	<div class="col-md-7 col-xs-12">
@@ -213,6 +237,26 @@
                     <button class="btn btn-primary">Déclarer la Mort</button>
         		<?php echo form_close(); ?>
         	</div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-xs-12 toPop" id="addTitre">
+                <h3>Ajouter un titre</h3>
+                <?php echo form_open('personnages/addTitre/' .$infoPerso->Id .'/' .$infoIndiv->Id );?>
+                    <div class="form-group col-md-4">
+                        <label for="titre">Titre</label><input name="titre" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="description">Description</label><input name="description" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="avantages">Avantages</label><input name="avantages" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                        <button class="btn btn-primary">Ajouter un titre <span class="fa fa-star"></span></button>
+                    </div>
+                <?php echo form_close(); ?>
+
+            </div>
         </div>
 
     </div>

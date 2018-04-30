@@ -49,6 +49,8 @@ class Personnages extends CI_Controller {
 
 		$data['travail'] = $this->personnages_model->getTravail($idPerso);
 
+		$data['titres'] = $this->personnages_model->getTitres($idPerso);
+
 		$data['skills'] = $this->personnages_model->getSkills($idPerso);
 
 		$this->load->view('template/header', $data);
@@ -121,6 +123,20 @@ class Personnages extends CI_Controller {
 		$this->personnages_model->levelUP($idPerso, $idIndiv, $currentLvl);
 
 		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+	}
+
+	public function addTitre($idPerso, $idIndiv){
+
+		$this->personnages_model->addTitre($idPerso, $idIndiv);
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+
+	}
+
+	public function removeTitre($idPerso, $idIndiv, $idTitre){
+
+		$this->personnages_model->removeTitre($idTitre);
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
+
 	}
 
 }

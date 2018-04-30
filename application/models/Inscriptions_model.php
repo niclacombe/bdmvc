@@ -12,7 +12,7 @@ class Inscriptions_model extends CI_Model {
 		$this->db->where('DateFin <', date('Y-m-d H:i:s', strtotime('+10 day') ) );
 		$this->db->order_by('DateFin', 'desc');
 
-		$query = $this->db->get('activites', 8);
+		$query = $this->db->get('activites', 30);
 		return $query->result();
 	}
 
