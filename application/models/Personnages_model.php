@@ -56,6 +56,15 @@ class Personnages_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function getAllTitres($idPerso){
+		$this->db->db_select('db_pilot');
+
+		$this->db->where('Type', 'PRESTIG');
+		$query = $this->db->get('competences_speciales');
+
+		return $query->result();
+	}
+
 	public function getResults(){
 
 		$this->db->db_select('db_indiv');

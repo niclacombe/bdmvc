@@ -111,7 +111,12 @@
                                 </li> 
                                 <li>
                                     <a href="<?php echo site_url('personnages'); ?>">Gérer les personnages</a>
-                                </li>                                
+                                </li>
+                                <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
+                                    <li>
+                                        <a href="<?php echo site_url('noblesse/listTitres') ?>">Titres</a>
+                                    </li>
+                                <?php endif; ?>                               
                             </ul>
                             
                         </li>
@@ -158,17 +163,6 @@
                                     <li>
                                         <a href="<?php echo site_url('groupes/viewActions'); ?>">Consulter les actions</a>
                                     </li>
-                                    <!--<?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
-                                        <li>
-                                            <a href="#">Noblesse <span class="fa arrow"></span></a>
-                                            <ul class="nav nav-second-level">
-                                                <li>
-                                                    <a href="<?php echo site_url('noblesse/manageNobles') ?>">Gérer les Nobles</a>
-                                                </li>
-                                                <li><a href="#">Gérer les Baronnies</a></li>
-                                            </ul>
-                                        </li>
-                                    <?php endif; ?> -->
                                 </ul>
                             </li>
                         <?php endif; ?>

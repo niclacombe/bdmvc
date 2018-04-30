@@ -51,6 +51,8 @@ class Personnages extends CI_Controller {
 
 		$data['titres'] = $this->personnages_model->getTitres($idPerso);
 
+		$data['allTitres'] = $this->personnages_model->getAllTitres($idPerso);
+
 		$data['skills'] = $this->personnages_model->getSkills($idPerso);
 
 		$this->load->view('template/header', $data);

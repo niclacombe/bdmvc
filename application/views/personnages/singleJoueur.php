@@ -243,7 +243,13 @@
                 <h3>Ajouter un titre</h3>
                 <?php echo form_open('personnages/addTitre/' .$infoPerso->Id .'/' .$infoIndiv->Id );?>
                     <div class="form-group col-md-4">
-                        <label for="titre">Titre</label><input name="titre" type="text" class="form-control">
+                        <label for="titre">Titre</label>
+                        <select name="titre" id="" class="form-control">
+                            <option value="Baron">Baron</option>
+                            <?php foreach($allTitres as $allTitre) : ?>
+                                <option value="<?php echo $allTitre->Nom; ?>"><?php echo $allTitre->Nom; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="description">Description</label><input name="description" type="text" class="form-control">

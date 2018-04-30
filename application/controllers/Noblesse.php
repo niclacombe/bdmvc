@@ -12,19 +12,13 @@ class Noblesse extends CI_Controller {
 		
 	}
 
-	public function manageNobles(){
+	public function listTitres(){
 		$data = array();
 
-		$this->load->view('template/header', $data);
-        $this->load->view('noblesse/manage_nobles', $data);
-        $this->load->view('template/footer',$data);
-	}
-
-	public function searchPerso(){
-		$data['results'] = $this->noblesse_model->searchPerso();
+		$data['titres'] = $this->noblesse_model->listTitres();
 
 		$this->load->view('template/header', $data);
-        $this->load->view('noblesse/manage_nobles', $data);
+        $this->load->view('noblesse/listeTitres', $data);
         $this->load->view('template/footer',$data);
 	}
 
