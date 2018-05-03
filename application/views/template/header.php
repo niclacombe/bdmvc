@@ -95,8 +95,7 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>                        
-                        </li> 
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-hand-o-right fa-fw"></i>Inscriptions<span class="fa arrow"></a>
                             <ul class="nav nav-second-level">
@@ -158,8 +157,9 @@
                             <li>
                                 <a href="#"><span class="fa fa-users"></span> Groupes <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="<?php echo site_url('groupes'); ?>">Consulter les groupes</a></li>
-
+                                    <li>
+                                        <a href="<?php echo site_url('groupes'); ?>">Consulter les groupes</a>
+                                    </li>
                                     <li>
                                         <a href="<?php echo site_url('groupes/viewActions'); ?>">Consulter les actions</a>
                                     </li>
