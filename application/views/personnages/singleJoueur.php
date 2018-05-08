@@ -100,14 +100,17 @@
 	        	<?php else:  ?>
 	        		<h4>Ce joueur n'a travaillé pour aucun groupe ce mois-ci.</h4>
 	        	<?php endif; ?>
+                <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                    <hr><h3>Historique du personnage</h3>
+                    <button class="btn btn-primary pop" data-pop="lireBG">Lire l'histoire</button>
+                <?php endif; ?>
         	</div>
             <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
                 <div class="col-xs-12 col-md-5">
                     <h3>Titres</h3>
                     <button class="btn btn-primary pop" data-pop="addTitre">Ajouter un titre <span class="fa fa-star"></span></button><br><br>
                     <?php if(empty($titres) ): ?>
-                        <h4>Ce joueur n'a aucun titre.</h4>
-                        
+                        <h4>Ce joueur n'a aucun titre.</h4>                        
                     <?php else: ?>
                     <table class="table table-responsive table-striped">
                     <?php foreach ($titres as $titre) : ?>
@@ -262,6 +265,14 @@
                     </div>
                 <?php echo form_close(); ?>
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-xs-12 toPop" id="lireBG">
+                <h3>Historique du personnage</h3>
+                <div class="col-md-8 col-md-offset-2 col-xs-12">
+                    <?php echo $infoPerso->Histoire; ?>
+                </div>
             </div>
         </div>
 

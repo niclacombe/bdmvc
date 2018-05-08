@@ -12,6 +12,7 @@ class Noblesse_model extends CI_Model {
 		$this->db->from('db_perso.titres tit');
 		$this->db->join('db_perso.personnages perso', 'perso.Id = tit.IdPersonnage', 'left');
 		$this->db->join('db_indiv.individus indiv', 'indiv.Id = perso.IdIndividu', 'left');
+		$this->db->order_by('tit.Titre', 'ASC');
 
 		$query = $this->db->get();
 
