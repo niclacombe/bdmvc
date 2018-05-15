@@ -8,14 +8,26 @@
         $('.searchField').delay(500).on('keyup',function(event){
             event.preventDefault();
 
+            searchTrigger();
+        });
+
+        $('#acceslvl').delay(500).on('change',function(event){
+            event.preventDefault();
+
+            searchTrigger();
+        });
+
+        function searchTrigger(){
+
             compte = $('#compte').val();
             prenomJoueur = $('#prenomJoueur').val();
             nomJoueur = $('#nomJoueur').val();
+            acceslvl = $('#acceslvl :selected').val();
 
-            launchSearch(compte, prenomJoueur, nomJoueur);
-        })
+            launchSearch(compte, prenomJoueur, nomJoueur, acceslvl);
+        }
 
-        function launchSearch(compte, prenomJoueur, nomJoueur){
+        function launchSearch(compte, prenomJoueur, nomJoueur, acceslvl){
             var container = $('#searchResults');
             container.html('<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>');
 
@@ -25,7 +37,8 @@
                 'data' : {
                     'compte' : compte,
                     'prenomJoueur' : prenomJoueur,                    
-                    'nomJoueur' : nomJoueur
+                    'nomJoueur' : nomJoueur,
+                    'acceslvl' : acceslvl
                 },
                 'success' : function(data){
                     if(data){
@@ -52,17 +65,29 @@
 
         <div class="row">
             <h3>Identification du joueur</h3>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-3">
                 <label for="compte">Compte</label>
                 <input type="text" name="compte" id="compte"class="form-control searchField">
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-3">
                 <label for="prenomJoueur">Prénom</label>
                 <input type="text" name="prenomJoueur" id="prenomJoueur"class="form-control searchField">
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-3">
                 <label for="nomJoueur">Nom</label>
                 <input type="text" name="nomJoueur" id="nomJoueur" class="form-control searchField">
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <label for="acceslvl">Niveau d'accès</label>
+                <select name="acceslvl" class="form-control" id="acceslvl">
+                    <option value="1">1 (Joueur)</option>
+                    <option value="2">2 (Inscripteur)</option>
+                    <option value="3">3 (Scripteur)</option>
+                    <option value="4">4 (Arbitre)</option>
+                    <option value="5">5 (Responsable)</option>
+                    <option value="6">6 (Organisateur)</option>
+                    <option value="7">7 (DBA)</option>
+                </select>
             </div>
 
         <div class="row">

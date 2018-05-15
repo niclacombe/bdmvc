@@ -92,7 +92,10 @@
                                         <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?><option value="6">6 (Organisateur)</option><?php endif; ?>
                                         <?php if($_SESSION['infoUser']->NiveauAcces >= 7): ?><option value="7">7 (DBA)</option><?php endif; ?>
                                 </select>
-                                <button id="btn-updateNiveauAcces" class="btn btn-primary btn-block">Modifier <span class="fa fa-check fa-reverse"></span></button>
+
+                                <button id="btn-updateNiveauAcces" class="btn btn-primary btn-block" <?php if($_SESSION['infoUser']->NiveauAcces <= 5): echo 'disabled="disabled"'; endif; ?>>
+                                    Modifier <span class="fa fa-check fa-reverse"></span>
+                                </button>
                             </td>                   
                 </tr>
 

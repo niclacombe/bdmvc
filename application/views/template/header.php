@@ -154,6 +154,17 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                        <li>
+                            <a href="#"><span class="fa fa-compass fa-reverse"></span> Quêtes<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+
+                                <li><a href="<?php echo site_url('Quetes/viewQuests'); ?>">Voir les Quêtes</a></li>
+                                                            
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    <?php endif; ?>
+                        <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
                             <li>
                                 <a href="#"><span class="fa fa-users"></span> Groupes <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
