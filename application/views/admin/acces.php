@@ -11,23 +11,23 @@
             searchTrigger();
         });
 
-        $('#acceslvl').delay(500).on('change',function(event){
+        /*$('#acceslvl').delay(500).on('change',function(event){
             event.preventDefault();
 
             searchTrigger();
-        });
+        });*/
 
         function searchTrigger(){
 
             compte = $('#compte').val();
             prenomJoueur = $('#prenomJoueur').val();
             nomJoueur = $('#nomJoueur').val();
-            acceslvl = $('#acceslvl :selected').val();
+            //acceslvl = $('#acceslvl :selected').val();
 
-            launchSearch(compte, prenomJoueur, nomJoueur, acceslvl);
+            launchSearch(compte, prenomJoueur, nomJoueur);
         }
 
-        function launchSearch(compte, prenomJoueur, nomJoueur, acceslvl){
+        function launchSearch(compte, prenomJoueur, nomJoueur){
             var container = $('#searchResults');
             container.html('<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>');
 
@@ -38,7 +38,6 @@
                     'compte' : compte,
                     'prenomJoueur' : prenomJoueur,                    
                     'nomJoueur' : nomJoueur,
-                    'acceslvl' : acceslvl
                 },
                 'success' : function(data){
                     if(data){

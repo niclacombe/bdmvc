@@ -149,9 +149,9 @@ class Administration extends CI_Controller {
 		$compte = $_POST['compte'];
 		$prenomJoueur = $_POST['prenomJoueur'];
 		$nomJoueur = $_POST['nomJoueur'];
-		$acceslvl = $_POST['acceslvl'];
+		//$acceslvl = $_POST['acceslvl'];
 
-		$data['individus'] = $this->individus_model->quickInscription($compte, $prenomJoueur, $nomJoueur, $acceslvl);
+		$data['individus'] = $this->individus_model->quickInscription($compte, $prenomJoueur, $nomJoueur);
 
 		$this->load->view('admin/displayAccesSearch',$data);
 

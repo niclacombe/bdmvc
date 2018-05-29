@@ -9,16 +9,35 @@ class Quetes_model extends CI_Model {
 
 	}
 
-	public function viewQuests(){
+	public function viewQuests($idUser){
+
 		$quetes = array();
 
-		$this->db->where('CodeEtat', 'DEM');
-		$query = $this->db->get('quetes');
+		$this->db->db_select("db_perso");
+
+		$this->db->select("quet.*, CONCAT(pers.Prenom,' ',pers.Nom) as 'nomPerso', CONCAT(indiv.Prenom,' ',indiv.Nom) as 'nomRespo'");
+		$this->db->from('db_perso.quetes quet');
+		$this->db->join('db_perso.personnages pers', 'pers.Id = quet.IdPersonnage', 'left');
+		$this->db->join('db_indiv.individus indiv', 'indiv.Id = quet.IdResponsable', 'left');
+		$this->db->where('quet.CodeEtat', 'DEM');
+		if( $idUser != null ){
+			$this->db->where('quet.IdResponsable', $idUser);
+		}
+		$query = $this->db->get();
 
 		$quetes['dem'] = $query->result();
 
-		$this->db->where('CodeEtat', 'ACTIF');
-		$query = $this->db->get('quetes');
+
+		$this->db->select("quet.*, CONCAT(pers.Prenom,' ',pers.Nom) as 'nomPerso', CONCAT(indiv.Prenom,' ',indiv.Nom) as 'nomRespo'");
+		$this->db->from('db_perso.quetes quet');
+		$this->db->join('db_perso.personnages pers', 'pers.Id = quet.IdPersonnage', 'left');
+		$this->db->join('db_indiv.individus indiv', 'indiv.Id = quet.IdResponsable', 'left');
+		$this->db->where('quet.CodeEtat', 'ACTIF');
+		$this->db->order_by('nomPerso', 'asc');
+		if( $idUser != null ){
+			$this->db->where('quet.IdResponsable', $idUser);
+		}
+		$query = $this->db->get();
 
 		$quetes['actif'] = $query->result();
 

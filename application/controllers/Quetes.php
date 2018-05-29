@@ -9,7 +9,13 @@ class Quetes extends CI_Controller {
 	}
 
 	public function viewQuests(){
-		$data['quetes'] = $this->quetes_model->viewQuests();
+
+		$idUser = null;
+		if($_SESSION['infoUser']->NiveauAcces < 5){
+			$idUser = $_SESSION['infoUser']->Id;
+		}
+
+		$data['quetes'] = $this->quetes_model->viewQuests($idUser);
 
 		$this->load->view('template/header', $data);
         $this->load->view('quetes/view-quests', $data);

@@ -34,7 +34,7 @@ class Home extends CI_Controller {
 	    	$this->load->model('home_model');
 			$infoUser = $this->home_model->verifyUser($idUser);
 
-			if($infoUser->NiveauAcces <= 3){
+			if($infoUser->NiveauAcces < 3){
 				$this->load->view('template/header', $data);
 	        	$this->load->view('errors/error_login', $data);
 	        	$this->load->view('template/footer',$data);

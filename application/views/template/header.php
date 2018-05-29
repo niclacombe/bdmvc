@@ -111,7 +111,7 @@
                                 <li>
                                     <a href="<?php echo site_url('personnages'); ?>">Gérer les personnages</a>
                                 </li>
-                                <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
+                                <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
                                     <li>
                                         <a href="<?php echo site_url('noblesse/listTitres') ?>">Titres</a>
                                     </li>
@@ -153,7 +153,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                        <?php if($_SESSION['infoUser']->NiveauAcces >= 5 || $_SESSION['infoUser']->NiveauAcces == 3): ?>
                         <li>
                             <a href="#"><span class="fa fa-compass fa-reverse"></span> Quêtes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

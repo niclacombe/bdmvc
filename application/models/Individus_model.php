@@ -39,7 +39,7 @@ class Individus_model extends CI_Model{
 
 	}
 
-	public function quickInscription($compte, $prenomJoueur, $nomJoueur, $acceslvl) {
+	public function quickInscription($compte, $prenomJoueur, $nomJoueur) {
 		$this->db->db_select('db_indiv');
 
 		$this->db->select('*');
@@ -54,10 +54,6 @@ class Individus_model extends CI_Model{
 
 		if ( !empty($nomJoueur) ){
 			$this->db->like('Nom',$nomJoueur);
-		}
-
-		if ( !empty($acceslvl) ){
-			$this->db->like('NiveauAcces',$acceslvl);
 		}
 
 		$results = $this->db->get('individus');

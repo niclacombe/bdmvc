@@ -16,25 +16,55 @@
 				<div class="tab-content">
 					<div id="actif" class="tab-pane fade in active">
 						<h3>Quêtes actives</h3>
-						<pre><?php echo var_dump($quetes['actif'][0]); ?></pre>
+						<table class="table-responsive table-striped table">
+							<tr>
+								<th>Nom du personnage</th>
+								<th>Objet</th>
+								<th>Suggestion</th>
+								<th>Parties</th>
+								<th>État</th>
+								<th>Responsable</th>
+								<th></th>
+							</tr>
+						<?php foreach ($quetes['actif'] as $quete) : ?>
+		        			<tr>
+		        				<td><?php echo $quete->nomPerso; ?></td>
+		        				<td><?php echo $quete->Objet; ?></td>
+		        				<td><?php echo $quete->Suggestions; ?></td>
+		        				<td><?php echo $quete->Parties; ?></td>
+		        				<td><?php echo $quete->CodeEtat; ?></td>
+		        				<td><?php echo $quete->nomRespo; ?></td>
+		        				<td><a class="detailQuete" data-id-quete="<?php echo $quete->Id; ?>" href="#"><button class="btn btn-primary"><span class="fa fa-eye"></span></button></a></td>
+		        			</tr>
+	        			<?php endforeach; ?>
+	        			</table>
 					</div>
 					<div id="dem" class="tab-pane fade">
-						<h3>Demande de quêtes</h3>
-						<pre><?php echo var_dump($quetes['dem'][0]); ?></pre>
+						<h3>Demandes de quêtes</h3>
+						<table class="table-responsive table-striped table">
+							<tr>
+								<th>Nom du personnage</th>
+								<th>Objet</th>
+								<th>Suggestion</th>
+								<th>Parties</th>
+								<th>État</th>
+								<th>Responsable</th>
+								<th></th>
+							</tr>
+						<?php foreach ($quetes['actif'] as $quete) : ?>
+		        			<tr>
+		        				<td><?php echo $quete->nomPerso; ?></td>
+		        				<td><?php echo $quete->Objet; ?></td>
+		        				<td><?php echo $quete->Suggestions; ?></td>
+		        				<td><?php echo $quete->Parties; ?></td>
+		        				<td><?php echo $quete->CodeEtat; ?></td>
+		        				<td><?php echo $quete->nomRespo; ?></td>
+		        				<td><a href="#"><button class="btn btn-primary"><span class="fa fa-eye"></span></button></a></td>
+		        			</tr>
+	        			<?php endforeach; ?>
+	        			</table>
 					</div>
 				</div>
-	        	<table class="table table-striped table-responsive">
-	        		<!--<?php foreach ($quetes as $quete) : ?>
-	        			<tr>
-	        				<td><?php echo $quete->IdPersonnage; ?></td>
-	        				<td><?php echo $quete->Objet; ?></td>
-	        				<td><?php echo $quete->Suggestions; ?></td>
-	        				<td><?php echo $quete->Parties; ?></td>
-	        				<td><?php echo $quete->CodeEtat; ?></td>
-	        				<td><?php echo $quete->IdResponsable; ?></td>
-	        			</tr>
-	        		<?php endforeach; ?>-->
-	        	</table>
 	        </div>
         </div>
     </div>
