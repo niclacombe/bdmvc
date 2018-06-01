@@ -107,7 +107,7 @@
                 <?php echo form_open('passes/linkPasses/' .$passe->Id); ?>
                     <select class="form-control" name="activite">
                         <?php foreach ($activites as $activite): ?>
-                            <?php if ($activite->Type == 'CONTRACT'): ?>
+                            <?php if ($activite->Type == 'CONTRACT' || $activite->Type == 'MINI'): ?>
                                 <option value="<?php echo $activite->Id; ?>"><?php echo $activite->Nom; ?></option>
                             <?php endif ?>
                         <?php endforeach ?>

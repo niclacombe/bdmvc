@@ -9,10 +9,18 @@ class Inscriptions_model extends CI_Model {
 
 	public function getActivites(){
 		$this->db->db_select('db_activ');
+		/***/
+		$this->db->where('DateFin <', date('Y-m-d H:i:s', strtotime('+10 day') ) );
+		$this->db->where('DateFin > NOW()');
+		$this->db->order_by('DateDebut', 'asc');
+
+		$query = $this->db->get('activites', 2);
+		/***/
+		/*
 		$this->db->where('DateFin <', date('Y-m-d H:i:s', strtotime('+10 day') ) );
 		$this->db->order_by('DateFin', 'desc');
 
-		$query = $this->db->get('activites', 30);
+		$query = $this->db->get('activites', 15);*/
 		return $query->result();
 	}
 
@@ -87,7 +95,7 @@ class Inscriptions_model extends CI_Model {
 
 		$this->db->where('IdIndividu', $idIndiv);
 		$this->db->where('CodeEtat !=', 'MORT');
-		//$this->db->where('CodeEtat !=', 'DEPOR');
+		$this->db->where('CodeEtat !=', 'SUPPR');
 
 		$query = $this->db->get('personnages');
 
@@ -239,7 +247,7 @@ class Inscriptions_model extends CI_Model {
 		$query = $this->db->get('activites');
 		$activ = $query->row();
 
-		if($activ->Type == 'BANQUET' || $activ->Type == 'CONTRACT'){
+		if($activ->Type == 'BANQUET' || $activ->Type == 'CONTRACT' || $activ->Type == 'MINI'){
 			$this->db->db_select('db_indiv');
 			$data = array(
 				'IdIndividu' => $idIndiv,
@@ -248,6 +256,8 @@ class Inscriptions_model extends CI_Model {
 				'DateInscription' => date('Y-m-d H:i:s', time()),
 				'Commentaires' => null
 			);
+
+			if($activ->Type == 'MINI'): $data['XP'] = 10; endif;
 
 			$this->db->insert('experience', $data);
 

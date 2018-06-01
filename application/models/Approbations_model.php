@@ -66,9 +66,7 @@ class Approbations_model extends CI_Model{
 		// Valide et ajoute 5XP si premier BG accepté.
 
 		$this->db->db_select('db_perso');
-		
 
-		$this->db->select('Id');
 		$this->db->where('IdPersonnage', $idPersonnage);
 		$this->db->where('Raison', 'Accep Histoire');
 
@@ -76,7 +74,7 @@ class Approbations_model extends CI_Model{
 
 		$queryResult = $query->row();
 
-		if( $queryResult->Id == null ){
+		if( $queryResult->Niveau < 2 ){
 
 			$this->db->db_select('db_perso');
 
