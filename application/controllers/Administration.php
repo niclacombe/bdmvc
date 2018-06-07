@@ -29,9 +29,22 @@ class Administration extends CI_Controller {
 	public function creditsEtDettes() {
 		$data = array();
 
+		$this->load->model('administration_model');
+
+		$data['sommaire'] = $this->administration_model->getSommaire();
+
 		$this->load->view('template/header', $data);
         $this->load->view('admin/dettes', $data);
         $this->load->view('template/footer',$data);
+	}
+
+	public function deleteCreditOuDette($idCredit){
+
+		$this->load->model('administration_model');
+
+		$this->administration_model->deleteCreditOuDette($idCredit);
+
+		redirect('/administration/creditsEtDettes','refresh');
 	}
 
 	public function searchIndividusCredit(){
@@ -69,9 +82,10 @@ class Administration extends CI_Controller {
 		$montant = $_POST['montantCredit'];
 		$idIndividu = $_POST['idIndividu'];
 		$raison = $_POST['raisonCredit'];
+		$commentaires = $_POST['commentairesCredit'];
 
 		$this->load->model('administration_model');
-		$this->administration_model->addCreditOrDebt($idIndividu, $raison, $montant);
+		$this->administration_model->addCreditOrDebt($idIndividu, $raison, $montant, $commentaires);
 		
 	}
 
@@ -79,9 +93,10 @@ class Administration extends CI_Controller {
 		$montant = -$_POST['montantDette'];
 		$idIndividu = $_POST['idIndividu'];
 		$raison = $_POST['raisonDette'];
+		$commentaires = $_POST['commentairesDette'];
 
 		$this->load->model('administration_model');
-		$this->administration_model->addCreditOrDebt($idIndividu, $raison, $montant);
+		$this->administration_model->addCreditOrDebt($idIndividu, $raison, $montant, $commentaires);
 
 	}
 

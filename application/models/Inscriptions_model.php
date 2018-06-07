@@ -9,18 +9,11 @@ class Inscriptions_model extends CI_Model {
 
 	public function getActivites(){
 		$this->db->db_select('db_activ');
-		/***/
-		$this->db->where('DateFin <', date('Y-m-d H:i:s', strtotime('+10 day') ) );
-		$this->db->where('DateFin > NOW()');
-		$this->db->order_by('DateDebut', 'asc');
 
-		$query = $this->db->get('activites', 2);
-		/***/
-		/*
 		$this->db->where('DateFin <', date('Y-m-d H:i:s', strtotime('+10 day') ) );
 		$this->db->order_by('DateFin', 'desc');
 
-		$query = $this->db->get('activites', 15);*/
+		$query = $this->db->get('activites', 15);
 		return $query->result();
 	}
 

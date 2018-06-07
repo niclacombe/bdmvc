@@ -41,9 +41,9 @@
         <?php if (isset($results)): ?>
         	<div class="row">
 		    	<div class="col-md-4 col-xs-12">
-		    		<select id="selectIdActiv" <?php //if($_SESSION['infoUser']->NiveauAcces <= 5): echo 'disabled="disabled"'; endif; ?> class="form-control">
+		    		<select id="selectIdActiv" <?php if($_SESSION['infoUser']->NiveauAcces <= 5): echo 'disabled="disabled"'; endif; ?> class="form-control">
 						<?php foreach ($activites as $key => $activite) : ?>
-							<option value="<?php echo $activite->Id; ?>" <?php if($key >= 2): echo 'disabled="disabled"'; endif; ?>>
+							<option value="<?php echo $activite->Id; ?>" >
 								<?php echo $activite->Nom; ?>
 							</option>
 						<?php endforeach; ?>

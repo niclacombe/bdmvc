@@ -11,11 +11,12 @@
             idIndividu = $('#idIndividu').val();
             montantCredit = $('#montantCredit').val();
             raisonCredit = $('#raisonCredit').val();
+            commentairesCredit = $('#commentairesCredit').val();
 
-            addCredit(idIndividu, montantCredit, raisonCredit);
+            addCredit(idIndividu, montantCredit, raisonCredit,commentairesCredit);
         })
 
-        function addCredit(idIndividu, montantCredit, raisonCredit){
+        function addCredit(idIndividu, montantCredit, raisonCredit,commentairesCredit){
             var container = $('#searchResults');
 
             $.ajax({
@@ -25,6 +26,7 @@
                     'idIndividu' : idIndividu,                    
                     'montantCredit' : montantCredit,
                     'raisonCredit' : raisonCredit,
+                    'commentairesCredit' : commentairesCredit,
                 },
                 'success' : function(data){
                     location.reload();
@@ -41,11 +43,12 @@
             idIndividu = $('#idIndividu').val();
             montantDette = $('#montantDette').val();
             raisonDette = $('#raisonDette').val();
+            commentairesDette = $('#commentairesDette').val();
 
-            addDette(idIndividu, montantDette, raisonDette);
+            addDette(idIndividu, montantDette, raisonDette, commentairesDette);
         })
 
-        function addDette(idIndividu, montantDette, raisonDette){
+        function addDette(idIndividu, montantDette, raisonDette, commentairesDette){
             var container = $('#searchResults');
 
             $.ajax({
@@ -55,6 +58,7 @@
                     'idIndividu' : idIndividu,                    
                     'montantDette' : montantDette,
                     'raisonDette' : raisonDette,
+                    'commentairesDette' : commentairesDette
                 },
                 'success' : function(data){
                     location.reload();
@@ -149,6 +153,7 @@
                 <div class="row">
                     <input id="montantCredit" class="form-control" type="text" placeholder="Montant">
                     <input id="raisonCredit" class="form-control" type="text" placeholder="Raison">
+                    <input id="commentairesCredit" class="form-control" type="text" placeholder="Commentaires">
                     <button id="btn-addCredit" class="btn btn-success">Ajouter un CRÉDIT</button>
                 </div>
             </div>
@@ -157,6 +162,7 @@
                 <div class="row">
                     <input id="montantDette" class="form-control" type="text" placeholder="Montant">
                     <input id="raisonDette" class="form-control" type="text" placeholder="Raison">
+                    <input id="commentairesDette" class="form-control" type="text" placeholder="Commentaires"> 
                     <button id="btn-addDette" class="btn btn-danger">Ajouter une DETTE</button>
                 </div>
             </div>

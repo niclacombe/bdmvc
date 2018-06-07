@@ -5,7 +5,7 @@ class Administration_model extends CI_Model{
 		$this->load->database('db_perso');
 	}
 
-	public function addCreditOrDebt($idIndividu, $raison, $montant){
+	public function addCreditOrDebt($idIndividu, $raison, $montant, $commentaires){
 		$this->db->db_select('db_indiv');
 
 		$insertData = array(
@@ -13,6 +13,7 @@ class Administration_model extends CI_Model{
 			'Montant' => $montant,
 			'DateInscription' => date('Y-m-d H:i:s', time()),
 			'Raison' => $raison,
+			'Commentaires' => $commentaires
 		);
 
 		$this->db->insert('sommes_dues',$insertData);
@@ -71,6 +72,26 @@ class Administration_model extends CI_Model{
 		$this->db->where('id',$idIndividu);
 		$this->db->update('individus',$data);
 
+	}
+
+	public function getSommaire(){
+		$this->db->db_select('db_indiv');
+
+		$this->db->select("som.*, CONCAT(ind.Prenom, ' ', ind.Nom) as nomIndiv");
+		$this->db->from('db_indiv.sommes_dues som');
+		$this->db->join('db_indiv.individus ind', 'ind.Id = som.IdIndividu', 'left');
+		$this->db->order_by('nomIndiv', 'asc');
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	public function deleteCreditOuDette($idCredit){
+		$this->db->db_select('db_indiv');
+
+		$this->db->where('Id', $idCredit);
+
+		$this->db->delete('sommes_dues');
 	}
 	
 }
