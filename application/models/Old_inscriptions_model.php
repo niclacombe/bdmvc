@@ -41,7 +41,7 @@ class Old_inscriptions_model extends CI_Model{
 
 	public function getCouts($type){
 		$this->db->where('Type',$type);
-		$query = $this->db->get('cout_par_activite');
+		$query = $this->db->get('types_activite');
 
 		return $query->row();
 	}

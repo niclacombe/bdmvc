@@ -62,7 +62,24 @@ class Personnages_model extends CI_Model {
 		$this->db->where('Type', 'PRESTIG');
 		$query = $this->db->get('competences_speciales');
 
-		return $query->result();
+		$titres = array();
+
+		foreach ($query->result() as $key => $titre) {
+			$titres[$key]['nom'] = $titre->Nom;
+			$titres[$key]['is_available'] = false;
+
+			if($titre->Nom != 'Baron'){
+				$this->db->db_select('db_perso');
+				$this->db->where('Titre', $titre->Nom);
+
+				$query = $this->db->get('titres');
+				if($query->result() == null){
+					$titres[$key]['is_available'] = true;
+				}
+			}
+		}
+
+		return $titres;
 	}
 
 	public function getResults(){

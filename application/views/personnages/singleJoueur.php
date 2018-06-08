@@ -250,7 +250,10 @@
                         <select name="titre" id="" class="form-control">
                             <option value="Baron">Baron</option>
                             <?php foreach($allTitres as $allTitre) : ?>
-                                <option value="<?php echo $allTitre->Nom; ?>"><?php echo $allTitre->Nom; ?></option>
+                                <option value="<?php echo $allTitre['nom']; ?>" <?php if($allTitre['is_available'] == false): echo 'disabled="disabled"'; endif; ?>>
+                                    <?php echo $allTitre['nom']; ?>
+                                    <?php if($allTitre['is_available'] == false): echo ' - <em>( Déjà attribué )</em>'; endif; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>

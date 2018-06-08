@@ -168,7 +168,7 @@ class Inscriptions_model extends CI_Model {
 		/*** Get Type ***/
 		$this->db->select('prix.PrixRegulier');
 		$this->db->from('db_activ.activites activ');
-		$this->db->join('db_activ.cout_par_activite prix', 'prix.Type = activ.Type', 'left');
+		$this->db->join('db_activ.types_activite prix', 'prix.Type = activ.Type', 'left');
 		$this->db->where('activ.Id', $idActiv);
 		$query = $this->db->get();
 		$prix = $query->row();
