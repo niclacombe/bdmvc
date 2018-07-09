@@ -10,6 +10,9 @@ class Groupes_model extends CI_Model {
 
 	public function getGroupes(){
 		$this->db->order_by('Nom', 'asc');
+		$this->db->where('CodeEtat', 'NOUV');
+		$this->db->or_where('CodeEtat', 'NOUVO');
+		$this->db->or_where('CodeEtat', 'OFFIC');
 		$query = $this->db->get('groupes');
 		return $query->result();
 	}
