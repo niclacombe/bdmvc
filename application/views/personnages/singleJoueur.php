@@ -6,17 +6,6 @@
         		<h2>Joueur : <em><?php echo $infoIndiv->Prenom . ' ' . $infoIndiv->Nom; ?></em></h2>        		
     		</div>
         </div>
-        <!--
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-            </div>
--->
         <div class="row">
             <ul class="nav nav-tabs nav-fill" role="tablist">
               <li class="nav-item">
@@ -28,9 +17,11 @@
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" role="tab" href="#skills"><h4><strong>Compétences</strong></h4></a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" role="tab" href="#notes"><h4><strong>Notes</strong></h4></a>
-              </li>
+              <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" role="tab" href="#notes"><h4><strong>Notes</strong></h4></a>
+                  </li>
+              <?php endif; ?>
             </ul>
         </div>
         <div class="tab-content">
@@ -196,33 +187,35 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" role="tabpanel" id="notes">
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-6 col-xs-12">
-                        <h3>Notes sur le personnages</h3>
-                        <h4>10 caractères min</h4>
-                        <h4>100 caractères max</h4>
-                        <?php echo form_open('personnages/updateNotes/' .$infoPerso->Id .'/' .$infoIndiv->Id); ?>
-                        <textarea name="note" id="note" cols="30" rows="15" class="form-control"><?php echo $notes->NoteRapide; ?></textarea>
-                        <br>
-                        <h4><span id="nb_car_note">100</span> caractères restants</h4>
-                        <button id="submit_note" class="btn btn-block btn-lg btn-success">Ajouter la note <span class="fa fa-check"></span></button>
-                        <?php echo form_close(); ?>
+            <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                <div class="tab-pane fade" role="tabpanel" id="notes">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6 col-xs-12">
+                            <h3>Notes sur le personnages</h3>
+                            <h4>10 caractères min</h4>
+                            <h4>100 caractères max</h4>
+                            <?php echo form_open('personnages/updateNotes/' .$infoPerso->Id .'/' .$infoIndiv->Id); ?>
+                            <textarea name="note" id="note" cols="30" rows="15" class="form-control"><?php echo $notes->NoteRapide; ?></textarea>
+                            <br>
+                            <h4><span id="nb_car_note">100</span> caractères restants</h4>
+                            <button id="submit_note" class="btn btn-block btn-lg btn-success">Ajouter la note <span class="fa fa-check"></span></button>
+                            <?php echo form_close(); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <script>
-                $('#note').on('keyup',function(){
-                    $('#nb_car_note').text(100 - parseInt( $('#note').val().length ) );
+                <script>
+                    $('#note').on('keyup',function(){
+                        $('#nb_car_note').text(100 - parseInt( $('#note').val().length ) );
 
-                    if(parseInt( $('#note').val().length ) > 100 ){
-                        $('#submit_note').attr('disabled','disabled');
-                    } else{
-                        $('#submit_note').removeAttr('disabled');
-                    }
-                });
-            </script>
+                        if(parseInt( $('#note').val().length ) > 100 ){
+                            $('#submit_note').attr('disabled','disabled');
+                        } else{
+                            $('#submit_note').removeAttr('disabled');
+                        }
+                    });
+                </script>
+            <?php endif; ?>
         </div>
 
         <!-- END OF TABS -->
