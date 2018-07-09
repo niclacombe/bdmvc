@@ -279,6 +279,21 @@ class Groupes_model extends CI_Model {
 	}
 
 	public function refusAction($idGroupe,$idAction){
+
+		$this->db->where('Id', $idAction);
+		$query = $this->db->get('actions_faites');
+
+		$action = $query->row();
+
+		$data = array(
+			'IdGroupe' => $idGroupe,
+			'Raison' => 'Refus - ' .$action->CodeAction,
+			'PI' => $action->CoutPI,
+			'DateInscription' => date('Y-m-d H:i:s', time() ),
+		);
+
+		$this->db->insert('points_influence', $data);
+
 		$data = array(
 			'CodeEtat' => 'REFUS',
 			'RaisonRefus' => $this->input->post('raison'),

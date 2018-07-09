@@ -862,6 +862,28 @@ class Personnages_model extends CI_Model {
 		$this->db->where('Id', $idTitre);
 		$this->db->delete('titres');
 	}
+
+	public function getNotes($idPerso){
+		$this->db->db_select('db_perso');
+		$this->db->select('NoteRapide');
+		$this->db->where('Id', $idPerso);
+
+		$query = $this->db->get('personnages');
+
+		return $query->row();
+	}
+
+	public function updateNotes($idPerso){
+
+		$data = array(
+			'NoteRapide' => $this->input->post('note')
+		);
+
+		$this->db->db_select('db_perso');
+		$this->db->where('Id', $idPerso);
+		$this->db->update('personnages', $data);
+		
+	}
 	
 
 }

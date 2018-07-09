@@ -3,166 +3,229 @@
         <div class="row">
         	<div class="col-xs-12">
         		<h1>Gestion de <?php echo $infoPerso->Prenom .' ' .$infoPerso->Nom; ?></h1>
-        		<h2>Joueur : <em><?php echo $infoIndiv->Prenom . ' ' . $infoIndiv->Nom; ?></em></h2>
-        		
+        		<h2>Joueur : <em><?php echo $infoIndiv->Prenom . ' ' . $infoIndiv->Nom; ?></em></h2>        		
     		</div>
         </div>
+        <!--
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            </div>
+-->
         <div class="row">
-        	<div class="col-md-7 col-xs-12">
-        		<h3>Informations</h3>
-        		<table class="table table-striped">
-        			<tr>
-        				<td><strong>Race</strong></td>
-						<td><?php echo $infoPerso->Race; ?></td>
-						<td></td>
-					</tr>
-        			<tr>
-        				<td><strong>Classe</strong></td>
-        				<td><?php echo $infoPerso->Classe; ?></td>
-        				<td><!--
-                            <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
-                            <button type="button" class="btn btn-primary pop" data-pop="editClasse">Modifier la Classe <span class="fa fa-star"></span></button>
-                            <?php endif; ?>-->          
-                        </td>
-    				</tr>
-        			<tr>
-        				<td><strong>Religion</strong></td>
-        				<td><?php echo $infoPerso->Religion; ?></td>
-        				<td>
-                            <button type="button" class="btn btn-primary pop" data-pop="editReligion">Modifier la Religion <span class="fa fa-star"></span></button>
-                        </td>
-    				</tr>
-        			<tr>
-        				<td><strong>Niveau</strong></td>
-        				<td><?php echo $infoPerso->Niveau; ?></td>
-        				<td>
-                            <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
-                            <a href="<?php echo site_url('personnages/levelUP/' .$infoPerso->Id .'/' .$infoIndiv->Id .'/' .$infoPerso->Niveau ); ?>">
-        						<button type="button" class="btn btn-primary pop" data-pop="lvlUp">LVL UP <span class="fa fa-arrow-up"></span></button>
-    						</a>
-                            <?php endif; ?>
-    					</td>
-    				</tr>
-    				<tr>
-    					<td><strong>État</strong></td>
-    					<td>
-	    					<?php 
-	    					if( $infoPerso->CodeEtat == 'DEPOR') {
-	    						echo 'DÉPORTÉ';
-	    					} elseif ($infoPerso->CodeEtat == 'MORT'){
-	    						echo 'MORT';
-	    					} elseif ($infoPerso->CodeEtat == 'NOUVO'){
-                                echo 'NOUVEAU';
-                            } else {
-	    						echo 'ACTIF';
-	    					}
-
-	    					?>    						
-    					</td>
-    					<td></td>
-    				</tr>
-    				<tr>
-        				<td><strong>Points de Vie</strong></td>
-        				<td><?php echo $PV[0]->SommePV; ?></td>
-        				<td></td>
-    				</tr>
-        		</table>
-        	</div>
-        	<div class="col-md-5 col-xs-12">
-                <h3>Points de Vie</h3>
-                <?php if($PV) : ?>
-                    <table class="table table-reponsive table-striped">
-                        <tr>
-                            <th>Raison</th>
-                            <th>Modif</th>
-                            <th>Commentaire</th>
-                        </tr>
-                    <?php foreach ($PV as $rPV) : ?>
-                        <tr>
-                            <td><?php echo $rPV->Raison; ?></td>
-                            <td><?php echo $rPV->PV; ?></td>
-                            <td><?php echo $rPV->Commentaires; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </table>
-                <?php endif; ?>
-        		<button class="btn btn-primary btn-lg btn-block pop" data-pop="declareDeath">Déclarer une Mort</button>
-        	</div>
+            <ul class="nav nav-tabs nav-fill" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" role="tab" href="#infogen"><h4><strong>Informations générales</strong></h4></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" role="tab" href="#titres"><h4><strong>Travail / Historique / Titres</strong></h4></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" role="tab" href="#skills"><h4><strong>Compétences</strong></h4></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" role="tab" href="#notes"><h4><strong>Notes</strong></h4></a>
+              </li>
+            </ul>
         </div>
-        <div class="row">
-        	<div class="col-xs-12 col-md-7">
-	        	<h3>Travail</h3>
-	        	<?php if($travail): ?>
-	        		<h4>Ce joueur a travaillé pour <?php echo $travail->Nom ?><strong></strong></h4>
-	        		<a href="<?php echo site_url('personnages/deleteTravail/' .$infoPerso->Id .'/' .$infoIndiv->Id ); ?>">
-	        			<button class="btn btn-primary">Payer le Travail &nbsp<span class="fa fa-btc"></span></button>
-	    			</a>
-	        	<?php else:  ?>
-	        		<h4>Ce joueur n'a travaillé pour aucun groupe ce mois-ci.</h4>
-	        	<?php endif; ?>
-                <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
-                    <hr><h3>Historique du personnage</h3>
-                    <button class="btn btn-primary pop" data-pop="lireBG">Lire l'histoire</button>
-                <?php endif; ?>
-        	</div>
-            <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
-                <div class="col-xs-12 col-md-5">
-                    <h3>Titres</h3>
-                    <button class="btn btn-primary pop" data-pop="addTitre">Ajouter un titre <span class="fa fa-star"></span></button><br><br>
-                    <?php if(empty($titres) ): ?>
-                        <h4>Ce joueur n'a aucun titre.</h4>                        
-                    <?php else: ?>
-                    <table class="table table-responsive table-striped">
-                    <?php foreach ($titres as $titre) : ?>
-                            <tr>
-                                <td><strong><?php echo $titre->Titre ?></strong></td>
-                                <td><?php echo $titre->Description .'<br><em>' . $titre->Avantages ?></em></td>
-                                <td>
-                                    <a href="<?php echo site_url('personnages/removeTitre') .'/' .$infoPerso->Id . '/' .$infoIndiv->Id .'/' .$titre->Id; ?>">
-                                        <button class="btn btn-danger"><span class="fa fa-trash"></span></button>
-                                    </a>
+        <div class="tab-content">
+            <div class="tab-pane active" role="tabpanel" id="infogen">
+                <div class="row">
+                	<div class="col-md-7 col-xs-12">
+                		<h3>Informations</h3>
+                		<table class="table table-striped">
+                			<tr>
+                				<td><strong>Race</strong></td>
+        						<td><?php echo $infoPerso->Race; ?></td>
+        						<td></td>
+        					</tr>
+                			<tr>
+                				<td><strong>Classe</strong></td>
+                				<td><?php echo $infoPerso->Classe; ?></td>
+                				<td><!--
+                                    <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
+                                    <button type="button" class="btn btn-primary pop" data-pop="editClasse">Modifier la Classe <span class="fa fa-star"></span></button>
+                                    <?php endif; ?>-->          
                                 </td>
-                            </tr>
-                    <?php endforeach; ?>
-                        </table>
+            				</tr>
+                			<tr>
+                				<td><strong>Religion</strong></td>
+                				<td><?php echo $infoPerso->Religion; ?></td>
+                				<td>
+                                    <button type="button" class="btn btn-primary pop" data-pop="editReligion">Modifier la Religion <span class="fa fa-star"></span></button>
+                                </td>
+            				</tr>
+                			<tr>
+                				<td><strong>Niveau</strong></td>
+                				<td><?php echo $infoPerso->Niveau; ?></td>
+                				<td>
+                                    <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
+                                    <a href="<?php echo site_url('personnages/levelUP/' .$infoPerso->Id .'/' .$infoIndiv->Id .'/' .$infoPerso->Niveau ); ?>">
+                						<button type="button" class="btn btn-primary pop" data-pop="lvlUp">LVL UP <span class="fa fa-arrow-up"></span></button>
+            						</a>
+                                    <?php endif; ?>
+            					</td>
+            				</tr>
+            				<tr>
+            					<td><strong>État</strong></td>
+            					<td>
+        	    					<?php 
+        	    					if( $infoPerso->CodeEtat == 'DEPOR') {
+        	    						echo 'DÉPORTÉ';
+        	    					} elseif ($infoPerso->CodeEtat == 'MORT'){
+        	    						echo 'MORT';
+        	    					} elseif ($infoPerso->CodeEtat == 'NOUVO'){
+                                        echo 'NOUVEAU';
+                                    } else {
+        	    						echo 'ACTIF';
+        	    					}
+
+        	    					?>    						
+            					</td>
+            					<td></td>
+            				</tr>
+            				<tr>
+                				<td><strong>Points de Vie</strong></td>
+                				<td><?php echo $PV[0]->SommePV; ?></td>
+                				<td></td>
+            				</tr>
+                		</table>
+                	</div>
+                	<div class="col-md-5 col-xs-12">
+                        <h3>Points de Vie</h3>
+                        <?php if($PV) : ?>
+                            <table class="table table-reponsive table-striped">
+                                <tr>
+                                    <th>Raison</th>
+                                    <th>Modif</th>
+                                    <th>Commentaire</th>
+                                </tr>
+                            <?php foreach ($PV as $rPV) : ?>
+                                <tr>
+                                    <td><?php echo $rPV->Raison; ?></td>
+                                    <td><?php echo $rPV->PV; ?></td>
+                                    <td><?php echo $rPV->Commentaires; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </table>
+                        <?php endif; ?>
+                		<button class="btn btn-primary btn-lg btn-block pop" data-pop="declareDeath">Déclarer une Mort</button>
+                	</div>
+                </div>
+            </div>
+            <div class="tab-pane fade" role="tabpanel" id="titres">
+                <div class="row">
+                    <div class="col-xs-12 col-md-7">
+                        <h3>Travail</h3>
+                        <?php if($travail): ?>
+                            <h4>Ce joueur a travaillé pour <?php echo $travail->Nom ?><strong></strong></h4>
+                            <a href="<?php echo site_url('personnages/deleteTravail/' .$infoPerso->Id .'/' .$infoIndiv->Id ); ?>">
+                                <button class="btn btn-primary">Payer le Travail &nbsp<span class="fa fa-btc"></span></button>
+                            </a>
+                        <?php else:  ?>
+                            <h4>Ce joueur n'a travaillé pour aucun groupe ce mois-ci.</h4>
+                        <?php endif; ?>
+                        <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                            <hr><h3>Historique du personnage</h3>
+                            <button class="btn btn-primary pop" data-pop="lireBG">Lire l'histoire</button>
+                        <?php endif; ?>
+                    </div>
+                    <?php if($_SESSION['infoUser']->NiveauAcces >= 5): ?>
+                        <div class="col-xs-12 col-md-5">
+                            <h3>Titres</h3>
+                            <button class="btn btn-primary pop" data-pop="addTitre">Ajouter un titre <span class="fa fa-star"></span></button><br><br>
+                            <?php if(empty($titres) ): ?>
+                                <h4>Ce joueur n'a aucun titre.</h4>                        
+                            <?php else: ?>
+                            <table class="table table-responsive table-striped">
+                            <?php foreach ($titres as $titre) : ?>
+                                    <tr>
+                                        <td><strong><?php echo $titre->Titre ?></strong></td>
+                                        <td><?php echo $titre->Description .'<br><em>' . $titre->Avantages ?></em></td>
+                                        <td>
+                                            <a href="<?php echo site_url('personnages/removeTitre') .'/' .$infoPerso->Id . '/' .$infoIndiv->Id .'/' .$titre->Id; ?>">
+                                                <button class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                            <?php endforeach; ?>
+                                </table>
+                            <?php endif; ?>
+                        </div>
                     <?php endif; ?>
                 </div>
-            <?php endif; ?>
+            </div>
+            <div class="tab-pane fade" role="tabpanel" id="skills">
+                <div class="row">
+                    <div class="col-md-7 col-xs-12">
+                        <h3>Compétences</h3>
+                        <h4>Ce personnage a <strong><?php echo $XP->XP; ?> XP</strong> en réserve.</h4>
+                        <table class="table table-striped">
+                            <tr>
+                                <th></th>
+                                <th>Nom Compétence</th>
+                                <th>Type</th>
+                                <th>UEC</th>
+                                <th>Date d'acquisition</th>
+                                <th>Code d'acquisition</th>                     
+                            </tr>
+                            <?php foreach ($skills as $skill) : ?>                  
+                                <tr>
+                                    <td><?php if($skill->UEC) :  ?><span class="fa fa-lightbulb-o fa-spin fa-2x"></span><?php endif; ?></td>
+                                    <td>
+                                        <?php if($skill->specNom) : echo $skill->specNom; else : echo $skill->regNom; endif; ?>
+                                    </td>
+                                    <td><?php echo $skill->Type; ?></td>
+                                    <td><?php echo $skill->UEC; ?></td>
+                                    <td><?php echo $skill->DateCreation; ?></td>
+                                    <td><?php echo $skill->CodeAcquisition; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                            
+                    </div>
+                    <div class="col-md-5 col-xs-12">
+                        <a href="<?php echo site_url('personnages/editSkills') .'/' .$infoPerso->Id . '/' .$infoIndiv->Id; ?>">
+                            <button class="btn btn-block btn-lg btn-primary" data-pop="editSkills" >Gérer les Compétences <span class="fa fa-edit"></span></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" role="tabpanel" id="notes">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6 col-xs-12">
+                        <h3>Notes sur le personnages</h3>
+                        <h4>10 caractères min</h4>
+                        <h4>100 caractères max</h4>
+                        <?php echo form_open('personnages/updateNotes/' .$infoPerso->Id .'/' .$infoIndiv->Id); ?>
+                        <textarea name="note" id="note" cols="30" rows="15" class="form-control"><?php echo $notes->NoteRapide; ?></textarea>
+                        <br>
+                        <h4><span id="nb_car_note">100</span> caractères restants</h4>
+                        <button id="submit_note" class="btn btn-block btn-lg btn-success">Ajouter la note <span class="fa fa-check"></span></button>
+                        <?php echo form_close(); ?>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('#note').on('keyup',function(){
+                    $('#nb_car_note').text(100 - parseInt( $('#note').val().length ) );
+
+                    if(parseInt( $('#note').val().length ) > 100 ){
+                        $('#submit_note').attr('disabled','disabled');
+                    } else{
+                        $('#submit_note').removeAttr('disabled');
+                    }
+                });
+            </script>
         </div>
-        <div class="row">
-        	<div class="col-md-7 col-xs-12">
-        		<h3>Compétences</h3>
-        		<h4>Ce personnage a <strong><?php echo $XP->XP; ?> XP</strong> en réserve.</h4>
-        		<table class="table table-striped">
-        			<tr>
-        				<th></th>
-        				<th>Nom Compétence</th>
-        				<th>Type</th>
-        				<th>UEC</th>
-        				<th>Date d'acquisition</th>
-        				<th>Code d'acquisition</th>        				
-        			</tr>
-        			<?php foreach ($skills as $skill) : ?>        			
-	        			<tr>
-	        				<td><?php if($skill->UEC) :  ?><span class="fa fa-lightbulb-o fa-spin fa-2x"></span><?php endif; ?></td>
-	        				<td>
-	        					<?php if($skill->specNom) : echo $skill->specNom; else : echo $skill->regNom; endif; ?>
-	        				</td>
-	        				<td><?php echo $skill->Type; ?></td>
-	        				<td><?php echo $skill->UEC; ?></td>
-	        				<td><?php echo $skill->DateCreation; ?></td>
-	        				<td><?php echo $skill->CodeAcquisition; ?></td>
-	        			</tr>
-        			<?php endforeach; ?>
-        		</table>
-	        		
-        	</div>
-        	<div class="col-md-5 col-xs-12">
-        		<a href="<?php echo site_url('personnages/editSkills') .'/' .$infoPerso->Id . '/' .$infoIndiv->Id; ?>">
-        			<button class="btn btn-block btn-lg btn-primary" data-pop="editSkills" >Gérer les Compétences <span class="fa fa-edit"></span></button>
-    			</a>
-        	</div>
-        </div>
+
+        <!-- END OF TABS -->
 
         <div class="row">
         	<div class="col-md-8 col-xs-12 toPop" id="editReligion">

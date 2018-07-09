@@ -55,6 +55,8 @@ class Personnages extends CI_Controller {
 
 		$data['skills'] = $this->personnages_model->getSkills($idPerso);
 
+		$data['notes'] = $this->personnages_model->getNotes($idPerso);
+
 		$this->load->view('template/header', $data);
         $this->load->view('personnages/singleJoueur', $data);
         $this->load->view('template/footer',$data);
@@ -139,6 +141,11 @@ class Personnages extends CI_Controller {
 		$this->personnages_model->removeTitre($idTitre);
 		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
 
+	}
+
+	public function updateNotes($idPerso, $idIndiv){
+		$this->personnages_model->updateNotes($idPerso);
+		redirect('/personnages/editPersonnage/' .$idPerso . '/' . $idIndiv ,'refresh');
 	}
 
 }
