@@ -192,7 +192,6 @@
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6 col-xs-12">
                             <h3>Notes sur le personnages</h3>
-                            <h4>10 caractères min</h4>
                             <h4>100 caractères max</h4>
                             <?php echo form_open('personnages/updateNotes/' .$infoPerso->Id .'/' .$infoIndiv->Id); ?>
                             <textarea name="note" id="note" cols="30" rows="15" class="form-control"><?php echo $notes->NoteRapide; ?></textarea>
