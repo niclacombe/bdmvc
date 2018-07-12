@@ -55,7 +55,7 @@
                 				<td><strong>Niveau</strong></td>
                 				<td><?php echo $infoPerso->Niveau; ?></td>
                 				<td>
-                                    <?php if($_SESSION['infoUser']->NiveauAcces >= 6): ?>
+                                    <?php if( $infoPerso->Niveau < 1 || $_SESSION['infoUser']->NiveauAcces >= 6): ?>
                                     <a href="<?php echo site_url('personnages/levelUP/' .$infoPerso->Id .'/' .$infoIndiv->Id .'/' .$infoPerso->Niveau ); ?>">
                 						<button type="button" class="btn btn-primary pop" data-pop="lvlUp">LVL UP <span class="fa fa-arrow-up"></span></button>
             						</a>
